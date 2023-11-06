@@ -1,14 +1,43 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { AuthDto } from './auth.dto';
+import { AuthDto } from './dto/auth.dto';
 import { faker } from '@faker-js/faker';
-import { hash } from 'argon2';
+import { hash, verify } from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwt: JwtService) {}
+
+  async accesToken(refreshToken: string) {
+    const result = await this.jwt.verifyAsync(refreshToken);
+    if (!result) throw new UnauthorizedException("Неправльный токен");
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: result.id
+      }
+    })
+
+    const tokens = await this.issueToken(user.id)
+
+    return {
+      user: this.getUserFields(user),
+      ...tokens,
+    }
+  }
+
+  async login(dto: AuthDto) {
+    const user = await this.validateUser(dto)
+    
+    const tokens = await this.issueToken(user.id)
+
+    return {
+      user: this.getUserFields(user),
+      ...tokens,
+    }
+  }
 
   async register(dto: AuthDto) {
     const existUserWithEmail = await this.prisma.user.findUnique({
@@ -60,4 +89,19 @@ export class AuthService {
     }
   }
 
+  private async validateUser(dto: AuthDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email
+      }
+    })
+    
+    if (!user) throw new NotFoundException("Пользователя с таким email не существует")
+    
+    const isValidPassword = await verify(user.password, dto.password)
+
+    if (!isValidPassword) throw new UnauthorizedException("Неверный пароль");
+
+    return user;
+  }
 }
