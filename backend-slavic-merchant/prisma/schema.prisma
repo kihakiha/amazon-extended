@@ -12,13 +12,12 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email    String @unique
-  password String
-
+  email      String @unique
+  password   String
   name       String @unique
   avatarPath String @default("/uploads/default-avatar.png") @map("avatar_path")
+  phone      String @default("")
 
-  phone String  @default("")
   order Order[]
 
   review Review[]
@@ -31,10 +30,11 @@ model Product {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  name   String   @unique
-  slug   String   @unique
-  price  Int
-  images String[]
+  name        String   @unique
+  slug        String   @unique
+  price       Int
+  images      String[]
+  description String
 
   orderItems OrderItem[]
   review     Review[]
@@ -52,6 +52,7 @@ model Category {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name String @unique
+  slug String @unique
 
   product Product[]
 }
@@ -97,6 +98,8 @@ model OrderItem {
 
   product   Product? @relation(fields: [productId], references: [id])
   productId Int      @map("product_id")
+
+  @@map("Order_item")
 }
 
 enum EnumOrderStatus {
