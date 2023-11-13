@@ -1,0 +1,28 @@
+{
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.semi": true,
+  "prettier.jsxBracketSameLine": true,
+  "prettier.printWidth": 100,
+  "importOrder": [
+    "^@core/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@/components/(.*)$",
+    "^@/layout/(.*)$",
+    "^@ui/(.*)$",
+    "^@/providers/(.*)$",
+    "^@/shared/(.*)$",
+    "^@/assets/(.*)$",
+    "^@/config/(.*)$",
+    "^@/store/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/types/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/api/(.*)$",
+    "^../(.*)",
+    "^./(.*)"
+  ],
+  "importOrderSeparations": true,
+  "importOrderSortSpecifiers": true
+}
