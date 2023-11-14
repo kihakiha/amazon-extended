@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-import { transparent, white } from "tailwindcss/colors";
+import { red, transparent, white } from "tailwindcss/colors";
 
 const colors = {
   transparent: transparent,
@@ -10,6 +10,8 @@ const colors = {
   secondary: "#161D25",
   "bg-color": "#F2F2F5",
   aqua: "#268697",
+  red: red[400],
+  gray: "#CDCDCD",
 };
 
 export const content = [
