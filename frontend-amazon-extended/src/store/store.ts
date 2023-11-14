@@ -16,7 +16,7 @@ import { cartSlice } from "./cart/cart.slice";
 import { userSlice } from "./user/user.slice";
 
 const persistConfig = {
-  key: "slavic-merchant",
+  key: "amazon-extended",
   storage,
   whitelist: ["cart"],
 };
