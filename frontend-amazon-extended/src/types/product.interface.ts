@@ -10,5 +10,14 @@ export interface IProduct {
   slug: string;
   createdAt: string;
   category: ICategory;
-  reviews: IReview[];
+  review: IReview[];
 }
+
+export type TProducts = {
+  products: IProduct[];
+};
+
+export type TPaginationProduct = {
+  length: number;
+  products: IProduct[];
+};

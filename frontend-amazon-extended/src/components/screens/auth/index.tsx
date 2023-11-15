@@ -1,3 +1,4 @@
+import { useAuthRedirect } from "@/components/hooks/useAuthRedirect";
 import { useActions } from "@/store/hooks/useActions";
 import { useAuth } from "@/store/hooks/useAuth";
 import { IEmailPassword } from "@/store/user/user.interface";
@@ -8,8 +9,7 @@ import { Loader } from "@/ui/loader";
 import { Meta } from "@/ui/meta";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { validEmail } from "./validEmail";
-import { useAuthRedirect } from "@/api/hooks/useAuthRedirect";
+import { validEmail } from "../../../utils/validEmail";
 
 export const Auth: React.FC = () => {
   useAuthRedirect();

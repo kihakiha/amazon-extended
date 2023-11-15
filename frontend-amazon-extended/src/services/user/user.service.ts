@@ -1,5 +1,5 @@
 import { instance } from "@/api/api.interceptor";
-import { IUser } from "@/types/user.interface";
+import { IFullUser, IUser } from "@/types/user.interface";
 
 const USERS = "users";
 
@@ -13,7 +13,7 @@ type TUpdateRequest = {
 
 export const UserService = {
   async getProfile() {
-    return await instance<IUser>({
+    return instance<IFullUser>({
       url: `/${USERS}/profile`,
       method: "GET",
     });

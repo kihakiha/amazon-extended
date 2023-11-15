@@ -1,5 +1,5 @@
-import { instance } from "@/api/api.interceptor";
-import { IProduct } from "@/types/product.interface";
+import { axiosClassic, instance } from "@/api/api.interceptor";
+import { IProduct, TPaginationProduct } from "@/types/product.interface";
 import {
   PRODUCTS,
   TProductDataFilters,
@@ -8,7 +8,7 @@ import {
 
 export const ProductService = {
   async getAll(queryData = {} as TProductDataFilters) {
-    return await instance<IProduct[]>({
+    return axiosClassic<TPaginationProduct[]>({
       url: `/${PRODUCTS}`,
       method: "GET",
       params: queryData,
@@ -16,42 +16,42 @@ export const ProductService = {
   },
 
   async getById(productId: string | number) {
-    return await instance<IProduct>({
+    return instance<IProduct>({
       url: `/${PRODUCTS}/${productId}`,
       method: "GET",
     });
   },
 
   async getBySlug(slug: string) {
-    return await instance<IProduct>({
+    return axiosClassic<IProduct>({
       url: `/${PRODUCTS}/by-slug/${slug}`,
       method: "GET",
     });
   },
 
   async getAllByCategory(categorySlug: string) {
-    return await instance<IProduct[]>({
+    return axiosClassic<IProduct[]>({
       url: `/${PRODUCTS}/by-category/${categorySlug}`,
       method: "GET",
     });
   },
 
   async getSimilar(productId: string) {
-    return await instance<IProduct[]>({
+    return axiosClassic<IProduct[]>({
       url: `/${PRODUCTS}/similar/${productId}`,
       method: "GET",
     });
   },
 
   async createProduct() {
-    return await instance<IProduct>({
+    return instance<IProduct>({
       url: `/${PRODUCTS}`,
       method: "POST",
     });
   },
 
   async updateProduct(id: string | number, data: TProductDataResponse) {
-    return await instance<IProduct>({
+    return instance<IProduct>({
       url: `/${PRODUCTS}/${id}`,
       method: "PUT",
       data,
@@ -59,7 +59,7 @@ export const ProductService = {
   },
 
   async deleteCategory(id: string | number) {
-    return await instance<IProduct>({
+    return instance<IProduct>({
       url: `/${PRODUCTS}/${id}`,
       method: "DELETE",
     });

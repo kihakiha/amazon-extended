@@ -1,7 +1,23 @@
-import { NextPage } from "next";
+import { Home } from "@/screens/home";
+import { ProductService } from "@/services/product/product.service";
+import { TPaginationProduct } from "@/types/product.interface";
+import { GetStaticProps, NextPage } from "next";
 
-const HomePage: NextPage = () => {
-  return <h1>hello world</h1>;
+const HomePage: NextPage<TPaginationProduct> = ({ length, products }) => {
+  return <Home products={products} length={length} />;
+};
+
+export const getStaticProps: GetStaticProps<
+  TPaginationProduct[]
+> = async () => {
+  const { data } = await ProductService.getAll({
+    page: 4,
+    perPage: 4,
+  });
+
+  return {
+    props: data,
+  };
 };
 
 export default HomePage;
