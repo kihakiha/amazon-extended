@@ -47,11 +47,11 @@ export const userSlice = createSlice({
 
       // ChechAuth reducer
       .addCase(checkAuth.fulfilled, (state, action) => {
-        console.log("STATE: ");
-        console.log(state.user);
-        console.log("ACTION: ");
-        //@ts-ignore
-        console.log(action.payload.data.user);
+        // console.log("STATE: ");
+        // console.log(state.user);
+        // console.log("ACTION: ");
+        // //@ts-ignore
+        // console.log(action.payload.data.user);
         //@ts-ignore
         state.user = action.payload.data.user;
       });

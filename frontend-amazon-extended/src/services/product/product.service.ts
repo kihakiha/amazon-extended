@@ -8,11 +8,13 @@ import {
 
 export const ProductService = {
   async getAll(queryData = {} as TProductDataFilters) {
-    return axiosClassic<TPaginationProduct[]>({
+    const { data } = await axiosClassic<TPaginationProduct>({
       url: `/${PRODUCTS}`,
       method: "GET",
       params: queryData,
     });
+
+    return data;
   },
 
   async getById(productId: string | number) {
@@ -58,7 +60,7 @@ export const ProductService = {
     });
   },
 
-  async deleteCategory(id: string | number) {
+  async deleteProduct(id: string | number) {
     return instance<IProduct>({
       url: `/${PRODUCTS}/${id}`,
       method: "DELETE",

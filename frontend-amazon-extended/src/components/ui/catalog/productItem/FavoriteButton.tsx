@@ -3,8 +3,7 @@ import { useProfile } from "@/components/hooks/useProfile";
 import { UserService } from "@/services/user/user.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 type TFavoriteButton = {
   productId: number;
@@ -13,13 +12,13 @@ type TFavoriteButton = {
 const FavoriteButton: React.FC<TFavoriteButton> = ({ productId }) => {
   const { profile } = useProfile();
 
-  const queryCache = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationKey: ["toggle favorite"],
     mutationFn: () => UserService.toggleFavorite(productId),
     onSuccess: () => {
-      queryCache.invalidateQueries({ queryKey: ["get profile"] });
+      queryClient.invalidateQueries({ queryKey: ["get profile"] });
     },
     onError: (error) => {
       console.log(errorCatch(error));
@@ -36,8 +35,17 @@ const FavoriteButton: React.FC<TFavoriteButton> = ({ productId }) => {
 
   return (
     <div>
-      <button className={"text-primary"} onClick={() => mutate()}>
-        {currentElement ? <FaHeart /> : <CiHeart />}
+      <button
+        className={
+          "text-primary hover:-translate-y-1 transition duration-200 ease-in-out"
+        }
+        onClick={() => mutate()}
+      >
+        {currentElement ? (
+          <FaHeart size={"1.5em"} />
+        ) : (
+          <FaRegHeart size={"1.5em"} />
+        )}
       </button>
     </div>
   );

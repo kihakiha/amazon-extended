@@ -7,7 +7,13 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["picsum.photos", "loremflickr.com", "static.re-store.ru"],
+    domains: [
+      "picsum.photos",
+      "loremflickr.com",
+      "static.re-store.ru",
+      "c.dns-shop.ru",
+      "cloudflare-ipfs.com",
+    ],
   },
 };
 

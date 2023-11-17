@@ -17,7 +17,7 @@ export const AddToCartButton: React.FC<TAddToCartButtonProps> = ({
   const { addToCart, removeFromCart } = useActions();
   const { items } = useCart();
 
-  const currentElement = items.find((cartItem) => cartItem.id === product.id);
+  const currentElement = items.find((item) => item.id === product.id);
 
   return (
     <div>
@@ -30,9 +30,9 @@ export const AddToCartButton: React.FC<TAddToCartButtonProps> = ({
         }
       >
         {currentElement ? (
-          <PiShoppingCartSimpleLight />
+          <PiShoppingCartSimpleFill size={"1.4em"} />
         ) : (
-          <PiShoppingCartSimpleFill />
+          <PiShoppingCartSimpleLight size={"1.4em"} />
         )}
       </button>
     </div>

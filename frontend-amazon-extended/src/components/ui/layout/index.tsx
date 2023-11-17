@@ -8,9 +8,7 @@ const Layout: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
       <Header />
       <div className="grid" style={{ gridTemplateColumns: "1fr 4fr" }}>
         <Sidebar />
-        <main className="p-12">
-          <div>{children}</div>
-        </main>
+        <main className="p-12">{children}</main>
       </div>
     </>
   );

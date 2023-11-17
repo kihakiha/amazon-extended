@@ -12,9 +12,9 @@ const DynamicFavoriteButton = dynamic(() => import("./FavoriteButton"), {
 
 export const ProductItem: React.FC<{ product: IProduct }> = ({ product }) => {
   return (
-    <div>
-      <div className=" bg-white rounded-xl relative overflow-hidden min-h-[250px]">
-        <div className="absolute top-1 right-1 z-10">
+    <div className="animate-scaleIn">
+      <div className=" bg-white rounded-xl relative overflow-hidden min-h-[300px] mb-3 px-8 hover:shadow-md transition ease-in-out">
+        <div className="absolute top-2 right-2 z-10">
           <DynamicFavoriteButton productId={product.id} />
         </div>
         <Link href={`/product/${product.slug}`}>
@@ -23,13 +23,13 @@ export const ProductItem: React.FC<{ product: IProduct }> = ({ product }) => {
             width={250}
             priority
             src={product.images[0]}
-            className="w-auto max-h-[250px] mx-auto py-4"
+            className="w-auto max-h-[300px] mx-auto py-4"
             alt={"Product " + product.name}
           />
         </Link>
       </div>
       <Link href={`/product/${product.slug}`}>
-        <h3 className="mb-1">{product.name}</h3>
+        <h3 className="text-xl">{product.name}</h3>
       </Link>
       <Link
         href={`/category/${product.category.slug}`}
