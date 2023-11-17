@@ -4,7 +4,10 @@ import { SquareButton } from "@/ui/squareButton";
 import { useRouter } from "next/router";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 
+import { OrderService } from "@/services/order/order.service";
+import { useActions } from "@/store/hooks/useActions";
 import { Button } from "@/ui/button";
+import { useMutation } from "@tanstack/react-query";
 import cn from "clsx";
 import { CartItem } from "./cart-item";
 
@@ -13,17 +16,25 @@ const HeaderCart: React.FC = () => {
 
   const { items, total } = useCart();
 
+  const { reset } = useActions();
+
   const { push } = useRouter();
 
-  // const { mutate } = useMutation({
-  //   mutationKey: ['create payment'],
-  //   mutationFn: () => {
-  //     PaymentService.createPayment(total),
-  //   },
-  //   onSuccess(data) {
-  //     push(data.confirmation.confirmation_url)
-  //   }
-  // });
+  const { mutate } = useMutation({
+    mutationFn: () =>
+      OrderService.placeOrder({
+        items: items.map((item) => ({
+          price: item.price,
+          quantity: item.quantity,
+          productId: item.product.id,
+        })),
+      }),
+    mutationKey: ["create order and payment"],
+
+    onSuccess: ({ data }) => {
+      push(data.confirmation.confirmation_url).then(() => reset());
+    },
+  });
 
   return (
     <div className="relative" ref={ref}>
@@ -52,7 +63,12 @@ const HeaderCart: React.FC = () => {
           <div className="font-bold text-xl">{total}₽</div>
         </div>
         <div className="text-center">
-          <Button variant="primary" size="sm" className={"btn-link mt-5 mb-2"}>
+          <Button
+            onClick={() => mutate()}
+            variant="primary"
+            size="sm"
+            className={"btn-link mt-5 mb-2"}
+          >
             Перейти к заказу
           </Button>
         </div>

@@ -13,6 +13,7 @@ const nextConfig = {
       "static.re-store.ru",
       "c.dns-shop.ru",
       "cloudflare-ipfs.com",
+      "avatars.githubusercontent.com",
     ],
   },
 };

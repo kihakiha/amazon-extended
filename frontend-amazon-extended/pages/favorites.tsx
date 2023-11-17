@@ -3,12 +3,9 @@ import { NextPageAuth } from "@/store/providers/auth-provider/auth-page.types";
 import { Catalog } from "@/ui/catalog";
 import Layout from "@/ui/layout";
 import { Meta } from "@/ui/meta";
-import { profile } from "console";
 
 const FavoritesPage: NextPageAuth = () => {
   const { profile } = useProfile();
-
-  console.log(profile);
 
   return (
     <Meta title="Избранное">
